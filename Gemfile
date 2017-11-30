@@ -2,5 +2,6 @@
 
 source "https://rubygems.org"
 
-gem 'mechanize'
 gem 'activesupport'
+gem 'highline'
+gem 'mechanize'
