@@ -38,10 +38,15 @@ CSV.parse(data) do |row|
 
       menu.prompt = "What is #{note} (#{amount / 100}$)? "
       menu.choices(*categories) do |cat|
-        pattern = highline.ask("Enter pattern to save?")
-        if pattern != ''
-          patterns << [cat, pattern]
-          File.open('merchants.re', 'a+') { |f| f.puts("#{cat}:#{pattern}") }
+        category = cat
+        while true
+          pattern = highline.ask("Enter pattern to save?")
+          break if pattern == ''
+          if Regexp.new(pattern).match?(note)
+            patterns << [cat, pattern]
+            File.open('merchants.re', 'a+') { |f| f.puts("#{cat}:#{pattern}") }
+            break
+          end
         end
       end
     end
